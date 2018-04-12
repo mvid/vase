@@ -50,7 +50,8 @@
     :example.v1/fogussomeone-page
     :example.v2/describe
     :example.v2/hello
-    :example.v2/intercept})
+    :example.v2/intercept
+    :example.v1/index-response})
 
 (deftest all-route-names-present
   (let [service     (srt/service-map)

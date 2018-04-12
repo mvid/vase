@@ -39,7 +39,9 @@
  :vase/apis
  {:example/v1
   {:vase.api/routes
-   {"/hello"                {:get #vase/respond {:name :example.v1/simple-response
+   {"/"                     {:get #vase/respond {:name :example.v1/index-response
+                                                 :body "Index"}}
+    "/hello"                {:get #vase/respond {:name :example.v1/simple-response
                                                  :body "Hello World"}}
     "/redirect-to-google"   {:get #vase/redirect {:name :example.v1/r-page
                                                   :url  "http://www.google.com"}}

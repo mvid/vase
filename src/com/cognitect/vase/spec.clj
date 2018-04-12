@@ -13,7 +13,7 @@
     (boolean (and (string? v) (not-empty v) (java.net.URI. v)))
     (catch java.net.URISyntaxException e false)))
 
-(defn no-duplicates-handlers?
+(defn no-duplicate-handlers?
   "Returns true if there are no two handlers for the same URI and action."
   [route-table]
   (distinct? (map #([(first %) (second %)]) route-table)))
@@ -29,7 +29,7 @@
                                                                             #(instance? java.util.regex.Pattern %))))))
 (s/def ::route-table (s/and
                        (s/* (s/spec ::route-table-route))
-                       no-duplicates-handlers?))
+                       no-duplicate-handlers?))
 
 ;; -- Vase app-specs --
 (s/def ::activated-apis  (s/or :base keyword?

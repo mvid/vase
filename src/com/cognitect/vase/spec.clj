@@ -13,6 +13,11 @@
     (boolean (and (string? v) (not-empty v) (java.net.URI. v)))
     (catch java.net.URISyntaxException e false)))
 
+(defn no-duplicates-handlers?
+  "Returns true if there are no two handlers for the same URI and action."
+  [route-table]
+  (distinct? (map #([(first %) (second %)]) route-table)))
+
 ;; -- Pedestal-specs --
 (s/def ::interceptor #(satisfies? interceptor/IntoInterceptor %))
 (s/def ::route-table-route (s/cat :path valid-uri?
@@ -22,7 +27,9 @@
                             :constraints (s/? (s/cat :_ #(= :constraints %)
                                                      :constraints (s/map-of keyword?
                                                                             #(instance? java.util.regex.Pattern %))))))
-(s/def ::route-table (s/* (s/spec ::route-table-route)))
+(s/def ::route-table (s/and
+                       (s/* (s/spec ::route-table-route))
+                       no-duplicates-handlers?))
 
 ;; -- Vase app-specs --
 (s/def ::activated-apis  (s/or :base keyword?

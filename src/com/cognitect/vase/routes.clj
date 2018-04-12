@@ -95,4 +95,10 @@
           app-api-route      (api-description-route app-version-root
                                                     app-version-routes
                                                     (api-description-route-name spec))]
-      (cons app-api-route app-version-routes))))
+      (if (not-any?
+            (fn [route] (and
+                          (= app-version-root (first route))
+                          (= :get (second route))))
+            app-version-routes)
+        (cons app-api-route app-version-routes)
+        app-version-routes))))

@@ -33,7 +33,7 @@
 
 (def known-route-names
   #{:describe-apis
-    :example.v1/describe
+    :example.v1/index-response
     :example.v1/simple-response
     :example.v1/r-page
     :example.v1/ar-page
@@ -50,8 +50,7 @@
     :example.v1/fogussomeone-page
     :example.v2/describe
     :example.v2/hello
-    :example.v2/intercept
-    :example.v1/index-response})
+    :example.v2/intercept})
 
 (deftest all-route-names-present
   (let [service     (srt/service-map)
